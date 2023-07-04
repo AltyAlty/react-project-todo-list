@@ -36,6 +36,19 @@ function App() {
         setTasks(newTasks);
     };
 
+    function changeTaskStatus(taskID: string, isDone: boolean) {
+        let task = tasks.find((t) => t.id === taskID);
+
+        if (task) {
+            task.isDone = isDone;
+        }
+
+        /*При помощи "..." делаем деструктуризацию массива, то кладем в новый массив элементы
+        * другого уже существующего массива, чтобы потом передать новый массив в "setTasks()", так как
+        * только в этом случае хук "useState()" зарегистрирует изменение и сделает ререндер.*/
+        setTasks([...tasks]);
+    };
+
     function changeFilter(value: FilterValuesType) {
         setFilter(value);
     };
@@ -62,6 +75,8 @@ function App() {
                 removeTasks={removeTask}
                 changeFilter={changeFilter}
                 addTask={addTask}
+                changeTaskStatus={changeTaskStatus}
+                filter={filter}
             />
         </div>
     );
