@@ -8,13 +8,15 @@ export type TaskType = {
 };
 
 type PropsType = {
+    id: string
     title: string
     tasks: Array<TaskType>
-    removeTasks: (id: string) => void
-    changeFilter: (value: FilterValuesType) => void
-    addTask: (title: string) => void
-    changeTaskStatus: (taskID: string, isDone: boolean) => void
+    removeTasks: (id: string, todolistID: string) => void
+    changeFilter: (value: FilterValuesType, todolistID: string) => void
+    addTask: (title: string, todolistID: string) => void
+    changeTaskStatus: (taskID: string, isDone: boolean, todolistID: string) => void
     filter: FilterValuesType
+    removeTodolist: (todolistID: string) => void
 };
 
 export const Todolist = (props: PropsType) => {
@@ -29,7 +31,7 @@ export const Todolist = (props: PropsType) => {
         setInputError(null);
 
         if (e.ctrlKey === true && e.charCode === 13) {
-            props.addTask(newTaskTitle);
+            props.addTask(newTaskTitle, props.id);
             setNewTaskTitle('');
         }
     };
@@ -37,7 +39,7 @@ export const Todolist = (props: PropsType) => {
     const addTask = () => {
         /*Метод "trim()" удаляет пробельные символы с начала и конца строки.*/
         if (newTaskTitle.trim() !== '') {
-            props.addTask(newTaskTitle);
+            props.addTask(newTaskTitle, props.id);
             setNewTaskTitle('');
         } else {
             setInputError('Title is required');
@@ -45,21 +47,24 @@ export const Todolist = (props: PropsType) => {
     };
 
     const onAllClickHandler = () => {
-        props.changeFilter('all');
+        props.changeFilter('all', props.id);
     };
 
     const onActiveClickHandler = () => {
-        props.changeFilter('active');
+        props.changeFilter('active', props.id);
     };
 
-
     const onCompleteClickHandler = () => {
-        props.changeFilter('complete');
+        props.changeFilter('complete', props.id);
+    };
+
+    const removeTodolist = () => {
+        props.removeTodolist(props.id);
     };
 
     return (
         <div>
-            <h3>{props.title}</h3>
+            <h3>{props.title} <button onClick={removeTodolist}>x</button></h3>
 
             <div>
                 <input type='text'
@@ -78,7 +83,7 @@ export const Todolist = (props: PropsType) => {
                 {
                     props.tasks.map((t) => {
                         const onRemoveHandler = () => {
-                            props.removeTasks(t.id);
+                            props.removeTasks(t.id, props.id);
                         };
 
                         const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +91,7 @@ export const Todolist = (props: PropsType) => {
                             * в момент нажатия, так как чекбокс попробует измениться, поэтому в
                             * функцию будет приходить то значение, на которое мы хотим изменить
                             * чекбокс.*/
-                            props.changeTaskStatus(t.id, e.currentTarget.checked);
+                            props.changeTaskStatus(t.id, e.currentTarget.checked, props.id);
                         };
 
                         return (
