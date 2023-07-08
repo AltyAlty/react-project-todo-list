@@ -20,7 +20,7 @@ type TodolistType = {
 };
 
 type TasksType = {
-    [key : string]: Array<TaskType>
+    [key: string]: Array<TaskType>
 }
 
 function App() {
@@ -121,6 +121,27 @@ function App() {
         setTasks({...tasks, [tempTodolist.id]: []});
     };
 
+    function changeTaskTitle(newTitleValue: string, taskID: string, todolistID: string) {
+        let tempTasks = tasks[todolistID];
+        let task = tempTasks.find((t) => t.id === taskID);
+
+        if (task && newTitleValue !== '') {
+            task.title = newTitleValue;
+
+            setTasks({...tasks});
+        }
+    };
+
+    function changeTodolistTitle(newTitleValue: string, todolistID: string) {
+        let todolist = todolists.find((tl) => tl.id === todolistID);
+
+        if (todolist && newTitleValue !== '') {
+            todolist.title = newTitleValue;
+
+            setTodolists([...todolists]);
+        }
+    };
+
     return (
         <div className='App'>
             <AddItemForm addItem={addTodolist}/>
@@ -153,6 +174,8 @@ function App() {
                             changeTaskStatus={changeTaskStatus}
                             filter={tl.filter}
                             removeTodolist={removeTodolist}
+                            changeTaskTitle={changeTaskTitle}
+                            changeTodolistTitle={changeTodolistTitle}
                         />
                     )
                 })

@@ -1,6 +1,7 @@
 import {FilterValuesType} from './App';
 import {ChangeEvent} from 'react';
 import {AddItemForm} from './AddItemForm';
+import {EditableSpan} from "./EditableSpan";
 
 export type TaskType = {
     id: string
@@ -18,6 +19,8 @@ type PropsType = {
     changeTaskStatus: (taskID: string, isDone: boolean, todolistID: string) => void
     filter: FilterValuesType
     removeTodolist: (todolistID: string) => void
+    changeTaskTitle: (newTitleValue: string, taskID: string, todolistID: string) => void
+    changeTodolistTitle: (newTitleValue: string, todolistID: string) => void
 };
 
 export const Todolist = (props: PropsType) => {
@@ -41,9 +44,13 @@ export const Todolist = (props: PropsType) => {
         props.addTask(title, props.id)
     };
 
+    const onChangeTodolistTitleHandler = (newTitleValue: string) => {
+        props.changeTodolistTitle(newTitleValue, props.id);
+    };
+
     return (
         <div>
-            <h3>{props.title}
+            <h3><EditableSpan inputText={props.title} onInputChangeCallback={onChangeTodolistTitleHandler}/>
                 <button onClick={removeTodolist}>x</button>
             </h3>
 
@@ -64,6 +71,10 @@ export const Todolist = (props: PropsType) => {
                             props.changeTaskStatus(t.id, e.currentTarget.checked, props.id);
                         };
 
+                        const onChangeTaskTitleHandler = (newTitleValue: string) => {
+                            props.changeTaskTitle(newTitleValue, t.id, props.id);
+                        };
+
                         return (
                             <li key={t.id} className={t.isDone ? 'is-done' : ''}>
                                 <input type='checkbox'
@@ -71,7 +82,7 @@ export const Todolist = (props: PropsType) => {
                                        onChange={onChangeStatusHandler}
                                 />
 
-                                <span>{t.title}</span>
+                                <EditableSpan inputText={t.title} onInputChangeCallback={onChangeTaskTitleHandler}/>
 
                                 <button onClick={onRemoveHandler}>x</button>
                             </li>
@@ -96,3 +107,4 @@ export const Todolist = (props: PropsType) => {
         </div>
     );
 };
+

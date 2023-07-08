@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3262b9e7-0367-4400-b3a7-1ff098c2c8fe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/AddItemForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/EditableSpan.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Todolist.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Todolist.tsx" afterDir="false" />
@@ -47,6 +47,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="es6.move.members.recent.items">
+      <recent name="E:\DevProjects\ReactProjects\react-random-lessons\002-react-project-todo-list\src\EditableSpan.tsx" />
       <recent name="E:\DevProjects\ReactProjects\react-random-lessons\002-react-project-todo-list\src\AddTaskItemForm.tsx" />
       <recent name="E:\DevProjects\ReactProjects\react-random-lessons\002-react-project-todo-list\src\Todolist.tsx" />
     </key>
@@ -87,7 +88,7 @@
       <workItem from="1688442616977" duration="730000" />
       <workItem from="1688443605902" duration="8867000" />
       <workItem from="1688735380698" duration="6848000" />
-      <workItem from="1688809174339" duration="3853000" />
+      <workItem from="1688809174339" duration="8453000" />
     </task>
     <servers />
   </component>
