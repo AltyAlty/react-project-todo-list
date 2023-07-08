@@ -1,5 +1,6 @@
 import {FilterValuesType} from './App';
-import {ChangeEvent, KeyboardEvent, useState} from 'react';
+import {ChangeEvent} from 'react';
+import {AddItemForm} from './AddItemForm';
 
 export type TaskType = {
     id: string
@@ -20,32 +21,6 @@ type PropsType = {
 };
 
 export const Todolist = (props: PropsType) => {
-    let [newTaskTitle, setNewTaskTitle] = useState<string>('');
-    let [inputError, setInputError] = useState<string | null>(null);
-
-    const onNewTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setNewTaskTitle(e.currentTarget.value);
-    };
-
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setInputError(null);
-
-        if (e.ctrlKey === true && e.charCode === 13) {
-            props.addTask(newTaskTitle, props.id);
-            setNewTaskTitle('');
-        }
-    };
-
-    const addTask = () => {
-        /*Метод "trim()" удаляет пробельные символы с начала и конца строки.*/
-        if (newTaskTitle.trim() !== '') {
-            props.addTask(newTaskTitle, props.id);
-            setNewTaskTitle('');
-        } else {
-            setInputError('Title is required');
-        }
-    };
-
     const onAllClickHandler = () => {
         props.changeFilter('all', props.id);
     };
@@ -62,22 +37,17 @@ export const Todolist = (props: PropsType) => {
         props.removeTodolist(props.id);
     };
 
+    const addTask = (title: string) => {
+        props.addTask(title, props.id)
+    };
+
     return (
         <div>
-            <h3>{props.title} <button onClick={removeTodolist}>x</button></h3>
+            <h3>{props.title}
+                <button onClick={removeTodolist}>x</button>
+            </h3>
 
-            <div>
-                <input type='text'
-                       value={newTaskTitle}
-                       onChange={onNewTitleChangeHandler}
-                       onKeyPress={onKeyPressHandler}
-                       className={inputError ? 'error' : ''}
-                />
-
-                <button onClick={addTask}>+</button>
-
-                {inputError && <div className='error-message'>{inputError}</div>}
-            </div>
+            <AddItemForm addItem={addTask}/>
 
             <ul>
                 {
