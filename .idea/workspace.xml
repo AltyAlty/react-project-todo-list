@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3262b9e7-0367-4400-b3a7-1ff098c2c8fe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/state/todolists-reducer.test.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/todolists-reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/user-reducer.test.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/user-reducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Todolist.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Todolist.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state/todolists-reducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/todolists-reducer.test.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +66,7 @@
       <recent name="E:\DevProjects\ReactProjects\react-random-lessons\002-react-project-todo-list\src\Todolist.tsx" />
     </key>
   </component>
-  <component name="RunManager" selected="Jest.title of correct todolist should be changed">
+  <component name="RunManager" selected="Jest.filter of correct todolist should be changed">
     <configuration name="correct todolist should be added" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
@@ -134,8 +129,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Jest.title of correct todolist should be changed" />
         <item itemvalue="Jest.filter of correct todolist should be changed" />
+        <item itemvalue="Jest.title of correct todolist should be changed" />
         <item itemvalue="Jest.correct todolist should be added" />
         <item itemvalue="Jest.correct todolist should be removed" />
         <item itemvalue="Jest.user reducer should change name" />
@@ -169,7 +164,7 @@
       <workItem from="1698758191160" duration="6437000" />
       <workItem from="1698827133512" duration="222000" />
       <workItem from="1698835130120" duration="7757000" />
-      <workItem from="1698844819843" duration="441000" />
+      <workItem from="1698844819843" duration="1699000" />
     </task>
     <servers />
   </component>
