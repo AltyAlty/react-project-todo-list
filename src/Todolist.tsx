@@ -52,7 +52,9 @@ export const Todolist = (props: PropsType) => {
 
     return (
         <div>
-            <h3><EditableSpan inputText={props.title} onInputChangeCallback={onChangeTodolistTitleHandler}/>
+            <h3>
+                <EditableSpan inputText={props.title} onInputChangeCallback={onChangeTodolistTitleHandler}/>
+
                 <IconButton aria-label={'delete'} onClick={removeTodolist}>
                     <Delete/>
                 </IconButton>
