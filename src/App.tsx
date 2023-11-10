@@ -23,7 +23,7 @@ export type TodolistType = {
     filter: FilterValuesType
 };
 
-type TasksType = {
+export type TasksType = {
     [key: string]: Array<TaskType>
 }
 
@@ -60,88 +60,81 @@ function App() {
         ],
     });
 
+    /*ac done*/
     function removeTask(id: string, todolistID: string) {
         let tempTasks = tasks[todolistID];
-
-        let filteredTasks = tempTasks.filter((t) => {
-            return t.id !== id;
-        });
-
+        let filteredTasks = tempTasks.filter((t) => t.id !== id);
         tasks[todolistID] = filteredTasks;
-        /*Делаем это, чтобы указать React, что объект в state изменился, поэтому нужна
-        * перерисовка.*/
+        /*Делаем это, чтобы указать React, что объект в state изменился, поэтому нужна перерисовка.*/
         setTasks({...tasks});
     };
 
+    /*ac done*/
     function addTask(title: string, todolistID: string) {
         let newTask = {id: v1(), title: title, isDone: false};
         let tempTasks = tasks[todolistID];
         let newTasks = [newTask, ...tempTasks];
         tasks[todolistID] = newTasks;
-        /*Делаем это, чтобы указать React, что объект в state изменился, поэтому нужна
-        * перерисовка.*/
+        /*Делаем это, чтобы указать React, что объект в state изменился, поэтому нужна перерисовка.*/
         setTasks({...tasks});
     };
 
-    function changeTaskStatus(taskID: string, isDone: boolean, todolistID: string) {
-        let tempTasks = tasks[todolistID];
-        let task = tempTasks.find((t) => t.id === taskID);
-
-        if (task) {
-            task.isDone = isDone;
-
-            /*При помощи "..." делаем деструктуризацию массива, то кладем в новый массив элементы
-            * другого уже существующего массива, чтобы потом передать новый массив в "setTasks()", так как
-            * только в этом случае хук "useState()" зарегистрирует изменение и сделает ререндер.*/
-            setTasks({...tasks});
-        }
-    };
-
-    function removeTodolist(todolistID: string) {
-        let tempTodolists = todolists.filter((tl) => {
-            return tl.id !== todolistID;
-        });
-
-        setTodolists(tempTodolists);
-        delete tasks[todolistID];
-        setTasks({...tasks})
-    };
-
-    function changeFilter(value: FilterValuesType, todolistID: string) {
-        let todolist = todolists.find((tl) => tl.id === todolistID);
-
-        if (todolist) {
-            todolist.filter = value;
-
-            setTodolists([...todolists]);
-        }
-    };
-
-    function addTodolist(title: string) {
-        let tempTodolist: TodolistType = {id: v1(), title: title, filter: 'all'};
-
-        setTodolists([tempTodolist, ...todolists]);
-
-        setTasks({...tasks, [tempTodolist.id]: []});
-    };
-
+    /*ac done*/
     function changeTaskTitle(newTitleValue: string, taskID: string, todolistID: string) {
         let tempTasks = tasks[todolistID];
         let task = tempTasks.find((t) => t.id === taskID);
 
         if (task && newTitleValue !== '') {
             task.title = newTitleValue;
-
             setTasks({...tasks});
         }
     };
 
+    /*ac done*/
+    function changeTaskStatus(taskID: string, isDone: boolean, todolistID: string) {
+        let tempTasks = tasks[todolistID];
+        let task = tempTasks.find((t) => t.id === taskID);
+
+        if (task) {
+            task.isDone = isDone;
+            /*При помощи "..." делаем деструктуризацию массива, то есть кладем в новый массив элементы другого уже
+            существующего массива, чтобы потом передать новый массив в "setTasks()", так как только в этом случае хук
+            "useState()" зарегистрирует изменение и сделает ререндер.*/
+            setTasks({...tasks});
+        }
+    };
+
+    /*ac done*/
+    function removeTodolist(todolistID: string) {
+        let tempTodolists = todolists.filter((tl) => tl.id !== todolistID);
+        setTodolists(tempTodolists);
+        delete tasks[todolistID];
+        setTasks({...tasks})
+    };
+
+    /*ac done*/
+    function changeFilter(value: FilterValuesType, todolistID: string) {
+        let todolist = todolists.find((tl) => tl.id === todolistID);
+
+        if (todolist) {
+            todolist.filter = value;
+            setTodolists([...todolists]);
+        }
+    };
+
+    /*ac done*/
+    function addTodolist(title: string) {
+        let tempTodolist: TodolistType = {id: v1(), title: title, filter: 'all'};
+        setTodolists([tempTodolist, ...todolists]);
+        setTasks({...tasks, [tempTodolist.id]: []});
+    };
+
+    /*ac done*/
     function changeTodolistTitle(newTitleValue: string, todolistID: string) {
         let todolist = todolists.find((tl) => tl.id === todolistID);
 
         if (todolist && newTitleValue !== '') {
             todolist.title = newTitleValue;
-
             setTodolists([...todolists]);
         }
     };

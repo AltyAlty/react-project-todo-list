@@ -11,13 +11,11 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
 
     const activateEditMode = () => {
         setEditMode(true);
-
         setInputText(props.inputText);
     };
 
     const deactivateEditMode = () => {
         setEditMode(false);
-
         props.onInputChangeCallback(inputText);
     };
 
@@ -28,7 +26,6 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.ctrlKey === true && e.key === 'Enter') {
             setEditMode(false);
-
             props.onInputChangeCallback(inputText);
         }
     };
