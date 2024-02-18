@@ -1,6 +1,12 @@
 import {TasksType} from '../App';
 import {v1} from 'uuid';
-import {AddTodolistActionType, RemoveTodolistActionType} from './todolists-reducer';
+import {
+    AddTodolistActionType,
+    RemoveTodolistActionType,
+    todolistID1,
+    todolistID2,
+    todolistID3
+} from './todolists-reducer';
 
 type StateType = TasksType;
 
@@ -38,7 +44,29 @@ export type ActionType =
     | AddTodolistActionType
     | RemoveTodolistActionType;
 
-export const tasksReducer = (state: StateType, action: ActionType): StateType => {
+/*Для Redux нужно задавать изначальный state, так как при запуске приложения в редьюсер приходит специальный
+action-объект, который попадает в default, что означает, что вернется state. Но изначально state равен undefined,
+поэтому нужно указать, чтобы при undefined state изначально был валидным.*/
+const initialState: StateType = {
+    [todolistID1]: [
+        {id: v1(), title: 'HTML&CSS', isDone: true},
+        {id: v1(), title: 'JS', isDone: false},
+        {id: v1(), title: 'REACT', isDone: false},
+        {id: v1(), title: 'REDUX', isDone: false},
+    ],
+
+    [todolistID2]: [
+        {id: v1(), title: 'OK', isDone: true},
+        {id: v1(), title: 'KEK', isDone: false},
+    ],
+
+    [todolistID3]: [
+        {id: v1(), title: 'NOT_OK', isDone: false},
+        {id: v1(), title: 'LOL', isDone: true},
+    ],
+};
+
+export const tasksReducer = (state: StateType = initialState, action: ActionType): StateType => {
     switch (action.type) {
         case 'REMOVE-TASK': {
             const stateCopy = {...state};
@@ -60,10 +88,11 @@ export const tasksReducer = (state: StateType, action: ActionType): StateType =>
 
         case 'CHANGE-TASK-TITLE': {
             const stateCopy = {...state};
+            // Здесь тоже баг как ниже, надо пофиксить.
             let task = stateCopy[action.todolistID].find((t) => t.id === action.taskID);
 
             if (task) {
-                task.title = action.taskTitle
+                task.title = action.taskTitle;
             }
 
             return stateCopy;
@@ -71,7 +100,11 @@ export const tasksReducer = (state: StateType, action: ActionType): StateType =>
 
         case 'CHANGE-TASK-STATUS': {
             const stateCopy = {...state};
-            stateCopy[action.todolistID].filter((t) => t.id === action.taskID)[0].isDone = action.isDone;
+            // Это вариант делает shallow copy.
+            // stateCopy[action.todolistID].filter((t) => t.id === action.taskID)[0].isDone = action.isDone;
+            stateCopy[action.todolistID] = stateCopy[action.todolistID].map(
+                (t) => t.id === action.taskID ? {...t, isDone: action.isDone} : t
+            );
             return stateCopy;
         }
 
@@ -86,7 +119,8 @@ export const tasksReducer = (state: StateType, action: ActionType): StateType =>
         }
 
         default:
-            throw new Error('Bad')
+            // throw new Error('Bad type');
+            return state; // Для Redux нужно возвращать неизменный state.
     }
 };
 

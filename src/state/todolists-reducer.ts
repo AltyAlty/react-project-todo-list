@@ -32,7 +32,20 @@ export type ActionType =
     | ChangeTodolistTitleActionType
     | ChangeTodolistFilterActionType;
 
-export const todolistsReducer = (state: StateType, action: ActionType): StateType => {
+export let todolistID1 = v1();
+export let todolistID2 = v1();
+export let todolistID3 = v1();
+
+/*Для Redux нужно задавать изначальный state, так как при запуске приложения в редьюсер приходит специальный
+action-объект, который попадает в default, что означает, что вернется state. Но изначально state равен undefined,
+поэтому нужно указать, чтобы при undefined state изначально был валидным.*/
+const initialState: StateType = [
+    {id: todolistID1, title: 'What to learn', filter: 'all'},
+    {id: todolistID2, title: 'What to buy', filter: 'active'},
+    {id: todolistID3, title: 'What to sell', filter: 'complete'},
+];
+
+export const todolistsReducer = (state: StateType = initialState, action: ActionType): StateType => {
     switch (action.type) {
         case 'REMOVE-TODOLIST': {
             return state.filter((tl) => {
@@ -41,7 +54,7 @@ export const todolistsReducer = (state: StateType, action: ActionType): StateTyp
         }
 
         case 'ADD-TODOLIST': {
-            return [...state, {id: action.todolistID, title: action.todolistTitle, filter: 'all'}];
+            return [{id: action.todolistID, title: action.todolistTitle, filter: 'all'}, ...state];
         }
 
         case 'CHANGE-TODOLIST-TITLE': {
@@ -69,7 +82,8 @@ export const todolistsReducer = (state: StateType, action: ActionType): StateTyp
         }
 
         default:
-            throw new Error('Bad')
+            // throw new Error('Bad type');
+            return state; // Для Redux нужно возвращать неизменный state.
     }
 };
 

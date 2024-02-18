@@ -39,7 +39,7 @@ test('IDs should be the same', () => {
     const endTodolistsState = todolistsReducer(startTodolistsState, action);
     const endTasksState = tasksReducer(startTasksState, action);
     const keys = Object.keys(endTasksState);
-    const IDFromTodolists = endTodolistsState[endTodolistsState.length - 1].id;
+    const IDFromTodolists = endTodolistsState[0].id;
     const IDFromTasks = keys[keys.length - 1];
     expect(IDFromTodolists).toBe(IDFromTasks);
     expect(IDFromTasks).toBe(IDFromTodolists);

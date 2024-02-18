@@ -1,10 +1,18 @@
-import React, {useState} from 'react';
+import React, {useReducer} from 'react';
 import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
 import {AddItemForm} from './AddItemForm';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@mui/material';
 import {Menu} from '@mui/icons-material';
+import {
+    addTodolistAC,
+    changeTodolistFilterAC,
+    changeTodolistTitleAC,
+    removeTodolistAC,
+    todolistsReducer
+} from './state/todolists-reducer';
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './state/tasks-reducer';
 
 export type FilterValuesType = 'all' | 'active' | 'complete';
 
@@ -18,12 +26,15 @@ export type TasksType = {
     [key: string]: Array<TaskType>
 }
 
-function App() {
+function AppWithReducers() {
     let todolistID1 = v1();
     let todolistID2 = v1();
     let todolistID3 = v1();
 
-    let [todolists, setTodolists] = useState<Array<TodolistType>>(
+    /*Хук "useReducer" первым параметром принимает редьюсер, а вторым параметром стейт, который будет обрабатываться
+    этим редьюсером. Это хук создаст dispatch-функцию, которая при вызове задиспатчит action-объект. В первой
+    переменной, которую создат этот хук, будет state.*/
+    let [todolists, dispatchToTodolistsReducer] = useReducer(todolistsReducer,
         [
             {id: todolistID1, title: 'What to learn', filter: 'all'},
             {id: todolistID2, title: 'What to buy', filter: 'active'},
@@ -32,102 +43,90 @@ function App() {
     );
 
     /*Здесь используем ассоциативный массив.*/
-    let [tasks, setTasks] = useState<TasksType>({
-        [todolistID1]: [
-            {id: v1(), title: 'HTML&CSS', isDone: true},
-            {id: v1(), title: 'JS', isDone: false},
-            {id: v1(), title: 'REACT', isDone: false},
-            {id: v1(), title: 'REDUX', isDone: false},
-        ],
+    let [tasks, dispatchToTasksReducer] = useReducer(tasksReducer,
+        {
+            [todolistID1]: [
+                {id: v1(), title: 'HTML&CSS', isDone: true},
+                {id: v1(), title: 'JS', isDone: false},
+                {id: v1(), title: 'REACT', isDone: false},
+                {id: v1(), title: 'REDUX', isDone: false},
+            ],
 
-        [todolistID2]: [
-            {id: v1(), title: 'OK', isDone: true},
-            {id: v1(), title: 'KEK', isDone: false},
-        ],
+            [todolistID2]: [
+                {id: v1(), title: 'OK', isDone: true},
+                {id: v1(), title: 'KEK', isDone: false},
+            ],
 
-        [todolistID3]: [
-            {id: v1(), title: 'NOT_OK', isDone: false},
-            {id: v1(), title: 'LOL', isDone: true},
-        ],
-    });
+            [todolistID3]: [
+                {id: v1(), title: 'NOT_OK', isDone: false},
+                {id: v1(), title: 'LOL', isDone: true},
+            ],
+        });
 
-    /*ac done*/
     function removeTask(id: string, todolistID: string) {
-        let tempTasks = tasks[todolistID];
-        let filteredTasks = tempTasks.filter((t) => t.id !== id);
-        tasks[todolistID] = filteredTasks;
-        /*Делаем это, чтобы указать React, что объект в state изменился, поэтому нужна перерисовка.*/
-        setTasks({...tasks});
+        /*Получаем action-объект.*/
+        const action = removeTaskAC(id, todolistID);
+
+        /*Диспатчим action-объект.*/
+        dispatchToTasksReducer(action);
     };
 
-    /*ac done*/
     function addTask(title: string, todolistID: string) {
-        let newTask = {id: v1(), title: title, isDone: false};
-        let tempTasks = tasks[todolistID];
-        let newTasks = [newTask, ...tempTasks];
-        tasks[todolistID] = newTasks;
-        /*Делаем это, чтобы указать React, что объект в state изменился, поэтому нужна перерисовка.*/
-        setTasks({...tasks});
+        /*Получаем action-объект.*/
+        const action = addTaskAC(title, todolistID);
+
+        /*Диспатчим action-объект.*/
+        dispatchToTasksReducer(action);
     };
 
-    /*ac done*/
     function changeTaskTitle(newTitleValue: string, taskID: string, todolistID: string) {
-        let tempTasks = tasks[todolistID];
-        let task = tempTasks.find((t) => t.id === taskID);
+        /*Получаем action-объект.*/
+        const action = changeTaskTitleAC(taskID, todolistID, newTitleValue);
 
-        if (task && newTitleValue !== '') {
-            task.title = newTitleValue;
-            setTasks({...tasks});
-        }
+        /*Диспатчим action-объект.*/
+        dispatchToTasksReducer(action);
     };
 
-    /*ac done*/
     function changeTaskStatus(taskID: string, isDone: boolean, todolistID: string) {
-        let tempTasks = tasks[todolistID];
-        let task = tempTasks.find((t) => t.id === taskID);
+        /*Получаем action-объект.*/
+        const action = changeTaskStatusAC(taskID, todolistID, isDone);
 
-        if (task) {
-            task.isDone = isDone;
-            /*При помощи "..." делаем деструктуризацию массива, то есть кладем в новый массив элементы другого уже
-            существующего массива, чтобы потом передать новый массив в "setTasks()", так как только в этом случае хук
-            "useState()" зарегистрирует изменение и сделает ререндер.*/
-            setTasks({...tasks});
-        }
+        /*Диспатчим action-объект.*/
+        dispatchToTasksReducer(action);
     };
 
-    /*ac done*/
     function removeTodolist(todolistID: string) {
-        let tempTodolists = todolists.filter((tl) => tl.id !== todolistID);
-        setTodolists(tempTodolists);
-        delete tasks[todolistID];
-        setTasks({...tasks})
+        /*Получаем action-объект.*/
+        const action = removeTodolistAC(todolistID);
+
+        /*Диспатчим action-объект.*/
+        dispatchToTasksReducer(action);
+        dispatchToTodolistsReducer(action);
     };
 
-    /*ac done*/
     function changeFilter(value: FilterValuesType, todolistID: string) {
-        let todolist = todolists.find((tl) => tl.id === todolistID);
+        /*Получаем action-объект.*/
+        const action = changeTodolistFilterAC(todolistID, value);
 
-        if (todolist) {
-            todolist.filter = value;
-            setTodolists([...todolists]);
-        }
+        /*Диспатчим action-объект.*/
+        dispatchToTodolistsReducer(action);
     };
 
-    /*ac done*/
     function addTodolist(title: string) {
-        let tempTodolist: TodolistType = {id: v1(), title: title, filter: 'all'};
-        setTodolists([tempTodolist, ...todolists]);
-        setTasks({...tasks, [tempTodolist.id]: []});
+        /*Получаем action-объект.*/
+        const action = addTodolistAC(title);
+
+        /*Диспатчим action-объект.*/
+        dispatchToTasksReducer(action);
+        dispatchToTodolistsReducer(action);
     };
 
-    /*ac done*/
     function changeTodolistTitle(newTitleValue: string, todolistID: string) {
-        let todolist = todolists.find((tl) => tl.id === todolistID);
+        /*Получаем action-объект.*/
+        const action = changeTodolistTitleAC(todolistID, newTitleValue);
 
-        if (todolist && newTitleValue !== '') {
-            todolist.title = newTitleValue;
-            setTodolists([...todolists]);
-        }
+        /*Диспатчим action-объект.*/
+        dispatchToTodolistsReducer(action);
     };
 
     return (
@@ -194,4 +193,4 @@ function App() {
     );
 };
 
-export default App;
+export default AppWithReducers;

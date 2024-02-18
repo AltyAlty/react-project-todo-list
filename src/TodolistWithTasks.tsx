@@ -1,9 +1,12 @@
-import {FilterValuesType} from './App';
+import {FilterValuesType} from './AppWithReduxNoTasks';
 import {ChangeEvent} from 'react';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
 import {Button, Checkbox, IconButton} from '@mui/material';
 import {Delete} from '@mui/icons-material';
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './state/tasks-reducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppRootState} from './state/store';
 
 export type TaskType = {
     id: string
@@ -14,18 +17,35 @@ export type TaskType = {
 type PropsType = {
     id: string
     title: string
-    tasks: Array<TaskType>
-    removeTask: (id: string, todolistID: string) => void
     changeFilter: (value: FilterValuesType, todolistID: string) => void
-    addTask: (title: string, todolistID: string) => void
-    changeTaskStatus: (taskID: string, isDone: boolean, todolistID: string) => void
     filter: FilterValuesType
     removeTodolist: (todolistID: string) => void
-    changeTaskTitle: (newTitleValue: string, taskID: string, todolistID: string) => void
     changeTodolistTitle: (newTitleValue: string, todolistID: string) => void
 };
 
-export const Todolist = (props: PropsType) => {
+export const TodolistWithTasks = (props: PropsType) => {
+    const dispatch = useDispatch();
+    const tasks = useSelector<AppRootState, Array<TaskType>>(state => state.tasks[props.id]);
+
+    function addTask(title: string) {
+        const action = addTaskAC(title, props.id);
+        dispatch(action);
+    };
+
+    function removeTask(id: string, todolistID: string) {
+        const action = removeTaskAC(id, todolistID);
+        dispatch(action);
+    };
+
+    function changeTaskTitle(newTitleValue: string, taskID: string, todolistID: string) {
+        const action = changeTaskTitleAC(taskID, todolistID, newTitleValue);
+        dispatch(action);
+    };
+
+    function changeTaskStatus(taskID: string, isDone: boolean, todolistID: string) {
+        const action = changeTaskStatusAC(taskID, todolistID, isDone);
+        dispatch(action);
+    };
 
     const onAllClickHandler = () => {
         props.changeFilter('all', props.id);
@@ -43,13 +63,23 @@ export const Todolist = (props: PropsType) => {
         props.removeTodolist(props.id);
     };
 
-    const addTask = (title: string) => {
-        props.addTask(title, props.id)
-    };
-
     const onChangeTodolistTitleHandler = (newTitleValue: string) => {
         props.changeTodolistTitle(newTitleValue, props.id);
     };
+
+    let tasksForTodolist = tasks;
+
+    if (props.filter === 'complete') {
+        tasksForTodolist = tasksForTodolist.filter((t) => {
+            return t.isDone === true;
+        });
+    }
+
+    if (props.filter === 'active') {
+        tasksForTodolist = tasksForTodolist.filter((t) => {
+            return t.isDone === false;
+        });
+    }
 
     return (
         <div>
@@ -65,9 +95,9 @@ export const Todolist = (props: PropsType) => {
 
             <div>
                 {
-                    props.tasks.map((t) => {
+                    tasksForTodolist.map((t) => {
                         const onRemoveHandler = () => {
-                            props.removeTask(t.id, props.id);
+                            removeTask(t.id, props.id);
                         };
 
                         const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -75,11 +105,11 @@ export const Todolist = (props: PropsType) => {
                             * в момент нажатия, так как чекбокс попробует измениться, поэтому в
                             * функцию будет приходить то значение, на которое мы хотим изменить
                             * чекбокс.*/
-                            props.changeTaskStatus(t.id, e.currentTarget.checked, props.id);
+                            changeTaskStatus(t.id, e.currentTarget.checked, props.id);
                         };
 
                         const onChangeTaskTitleHandler = (newTitleValue: string) => {
-                            props.changeTaskTitle(newTitleValue, t.id, props.id);
+                            changeTaskTitle(newTitleValue, t.id, props.id);
                         };
 
                         return (
