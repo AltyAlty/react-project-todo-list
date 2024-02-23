@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './App.css';
 import {TaskType, TodolistWithTasks} from './TodolistWithTasks';
 import {AddItemForm} from './AddItemForm';
@@ -27,6 +27,7 @@ export type TasksType = {
 }
 
 function AppWithReduxNoTasks() {
+    console.log('AppWithReduxNoTasks was called');
     /*Чтобы создать dispatch-функцию используем хук "useDispatch" из React-Redux.*/
     const dispatch = useDispatch();
 
@@ -35,37 +36,44 @@ function AppWithReduxNoTasks() {
     него нужную часть.*/
     const todolists = useSelector<AppRootState, Array<TodolistType>>(state => state.todolists);
 
-    function removeTodolist(todolistID: string) {
+    const removeTodolist = useCallback((todolistID: string) => {
         /*Получаем action-объект.*/
         const action = removeTodolistAC(todolistID);
 
         /*Диспатчим action-объект.*/
         dispatch(action);
-    };
+    }, [dispatch]);
 
-    function changeFilter(value: FilterValuesType, todolistID: string) {
+    const changeFilter = useCallback((value: FilterValuesType, todolistID: string) => {
         /*Получаем action-объект.*/
         const action = changeTodolistFilterAC(todolistID, value);
 
         /*Диспатчим action-объект.*/
         dispatch(action);
-    };
+    }, [dispatch]);
 
-    function addTodolist(title: string) {
+    /*Функцию "addTodolist()" мы отправляем через пропсы компоненте "AddItemForm". Каждый раз когда перезапускается
+    компонента "AppWithReduxNoTasks" заново создается эта функция и при сравнении пропсов получается, что функции
+    разные, поэтому происходит перерисовка компоненты "AddItemForm", поскольку получается, что пропсы поменялись. Чтобы
+    этого избежать использует хук "useCallback". Первым параметром этот хук принимает функцию, которая будет
+    кэшироваться или проходить мемоизацию, чтобы в случаях описанных выще не было лишних перерисовок. Вторым параметром
+    указываются зависимости, обычно там указывает dispatch-функция и данные props, которые используются в функции. Этот
+    хук стоит использовать если какой-то callback передается в компоненту, а не в элемент.*/
+    const addTodolist = useCallback((title: string) => {
         /*Получаем action-объект.*/
         const action = addTodolistAC(title);
 
         /*Диспатчим action-объект.*/
         dispatch(action);
-    };
+    }, [dispatch]);
 
-    function changeTodolistTitle(newTitleValue: string, todolistID: string) {
+    const changeTodolistTitle = useCallback((newTitleValue: string, todolistID: string) => {
         /*Получаем action-объект.*/
         const action = changeTodolistTitleAC(todolistID, newTitleValue);
 
         /*Диспатчим action-объект.*/
         dispatch(action);
-    };
+    }, [dispatch]);
 
     return (
         <div className='App'>
@@ -90,7 +98,7 @@ function AppWithReduxNoTasks() {
                     {
                         todolists.map((tl) => {
                             return (
-                                <Grid item>
+                                <Grid item key={tl.id}>
                                     <Paper style={{padding: '5px'}}>
                                         <TodolistWithTasks
                                             key={tl.id}

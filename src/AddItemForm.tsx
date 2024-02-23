@@ -1,12 +1,13 @@
-import {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {Button, IconButton, TextField} from '@mui/material';
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import {IconButton, TextField} from '@mui/material';
 import {ControlPoint} from '@mui/icons-material';
 
 export type AddItemFormPropsType = {
     addItem: (title: string) => void
 };
 
-export const AddItemForm = (props: AddItemFormPropsType) => {
+export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
+    console.log('AddItemForm was called');
     let [newTaskTitle, setNewTaskTitle] = useState<string>('');
     let [inputError, setInputError] = useState<string | null>(null);
 
@@ -15,7 +16,10 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
     };
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setInputError(null);
+        /*Это условие нужно, чтобы избежать лишних перерисовок, когда мы зануляем ошибку, хотя ее и не было.*/
+        if (inputError !== null) {
+            setInputError(null);
+        }
 
         if (e.ctrlKey === true && e.charCode === 13) {
             props.addItem(newTaskTitle);
@@ -49,4 +53,4 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
             </IconButton>
         </div>
     )
-};
+});

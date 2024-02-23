@@ -88,23 +88,31 @@ export const tasksReducer = (state: StateType = initialState, action: ActionType
 
         case 'CHANGE-TASK-TITLE': {
             const stateCopy = {...state};
-            // Здесь тоже баг как ниже, надо пофиксить.
-            let task = stateCopy[action.todolistID].find((t) => t.id === action.taskID);
 
-            if (task) {
-                task.title = action.taskTitle;
-            }
+            /* Это вариант не работает, так как мы не делаем копию каждой "коробки", внутри которых данные, которые мы
+            хотим поменять.*/
+            // let task = stateCopy[action.todolistID].find((t) => t.id === action.taskID);
+            stateCopy[action.todolistID] = stateCopy[action.todolistID].map(
+                (t) => t.id === action.taskID ? {...t, title: action.taskTitle} : t
+            );
+
+            // if (task) {
+            //     task.title = action.taskTitle;
+            // }
 
             return stateCopy;
         }
 
         case 'CHANGE-TASK-STATUS': {
             const stateCopy = {...state};
-            // Это вариант делает shallow copy.
+
+            /* Это вариант не работает, так как мы не делаем копию каждой "коробки", внутри которых данные, которые мы
+            хотим поменять.*/
             // stateCopy[action.todolistID].filter((t) => t.id === action.taskID)[0].isDone = action.isDone;
             stateCopy[action.todolistID] = stateCopy[action.todolistID].map(
                 (t) => t.id === action.taskID ? {...t, isDone: action.isDone} : t
             );
+
             return stateCopy;
         }
 
