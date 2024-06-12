@@ -17,7 +17,7 @@ export const rootReducer = combineReducers(
 //     tasks: TasksType
 // };
 
-export type AppRootState = ReturnType<typeof rootReducer>
+export type AppRootState = ReturnType<typeof rootReducer>;
 
 /*Создание store в Redux. В Redux есть объект store, в котором всегда есть один объект state. Store может
 преобразовывать state при помощи редьюсеров. Также в store есть и другие методы. React-Redux соединяет React и Redux, в

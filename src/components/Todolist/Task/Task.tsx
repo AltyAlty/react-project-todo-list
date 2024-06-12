@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useCallback} from 'react';
-import {EditableSpan} from './EditableSpan';
+import {EditableSpan} from '../../EditableSpan/EditableSpan';
 import {Checkbox, IconButton} from '@mui/material';
 import {Delete} from '@mui/icons-material';
-import {TaskType} from './TodolistWithTasks';
+import {TaskType} from '../TodolistWithTasks';
 
 type PropsType = {
     task: TaskType
