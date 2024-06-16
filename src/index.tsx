@@ -3,14 +3,12 @@ yarn create react-app . --template typescript
 
 yarn add uuid
 yarn add @types/uuid
-
 yarn add @mui/material @emotion/react @emotion/styled
 yarn add @mui/icons-material
-
 yarn add redux react-redux @types/react-redux
-
 npx storybook@latest init
 yarn add @storybook/addon-storysource --dev
+yarn add axios
 
 Storybook - это библиотека для изолированного создания компонентов и страниц пользовательского интерфейса. Storybook
 можно использовать для разработки пользовательского интерфейса, тестирования и документирования. Storybook позволяет
