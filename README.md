@@ -2,7 +2,7 @@
 
 This is a simple Todo List built with React and Typescript. For state management, the application utilizes Redux and React Redux to keep the state organized. The user interface is designed using Material UI, providing a clean and responsive design. To ensure reliability, the application includes unit tests with Jest, snapshot tests with Storybook and API tests using Axios integrated with Storybook.
 
-<h2>Tech Stack:</h3>
+<h2>Tech Stack</h3>
 
 **`React`**
 
@@ -20,7 +20,7 @@ This is a simple Todo List built with React and Typescript. For state management
 
 **`Axios`**
 
-<h2>Scripts:</h3>
+<h2>Scripts</h3>
 
 #### `yarn start` - Runs the application
 
