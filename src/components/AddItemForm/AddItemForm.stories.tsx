@@ -1,25 +1,20 @@
 /*Импортируем компонент для создания историй для него.*/
 import {AddItemForm} from './AddItemForm';
-/*Импортируем "action" из Storybook для создания callback-функций, возвращающих action-объекты.*/
+/*Импортируем функцию "action()" из Storybook для создания callback-функций, возвращающих action-объекты.*/
 import {action} from '@storybook/addon-actions';
 
 /*Перед тем как создавать истории, нужно по дефолту экспортировать объект с настройками. Здесь мы используем два
 обязательных поля для настроек, но существуют и другие поля настроек.*/
-export default {
-    title: 'AddItemForm Component',
-    component: AddItemForm,
-};
+export default {title: 'AddItemForm Component', component: AddItemForm};
 
-/*Создаем callback-функцию для историй с нашим компонентом. Для этого мы используем функцию "action" из Storybook.
-Функция "action" принимает какие-то данные в качестве параметра. При срабатываении callback-функции эти данные будут
+/*Создаем callback-функцию для историй с нашим компонентом. Для этого мы используем функцию "action()" из Storybook.
+Функция "action()" принимает какие-то данные в качестве параметра. При срабатывании callback-функции эти данные будут
 выведены в отдельной вкладке "Actions" со всеми остальными данными, которые использовались при работе с этой
 callback-функцией.*/
 const callback = action('Title: ');
 
-/*Это уже сама история. Здесь просто отрисовываем компонент "AddItemForm" используя нашу callback-функция как параметр
+/*Это уже сама история. Здесь просто отрисовываем компонент "AddItemForm", используя нашу callback-функцию как параметр
 для компонента. Истории тоже нужно экспортировать. В данном случае мы оформили нашу истории в качестве стрелочной
 функции. В нашем компоненте при нажатии на значок, который добавляет новый элемент, будет срабатывать созданная нами
 callback-функция.*/
-export const AddItemFormBaseExample = () => {
-    return <AddItemForm addItem={callback}/>;
-};
+export const AddItemFormBaseExample = () => <AddItemForm addItem={callback} itemType='title' buttonVariant='outlined'/>;

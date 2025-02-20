@@ -3,9 +3,10 @@ import axios from 'axios';
 const settings = {
     /*Включаем использование cookies.*/
     withCredentials: true,
-    /*Указываем обязательный ключ доступа, который сгенерирован на сайте API.*/
+    /*Указываем обязательный ключ доступа и токен.*/
     headers: {
-        'api-key': ''
+        'api-key': '',
+        'Authorization': 'Bearer '
     }
 };
 

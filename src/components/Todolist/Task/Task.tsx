@@ -1,46 +1,55 @@
 import React, {ChangeEvent, useCallback} from 'react';
-import {EditableSpan} from '../../EditableSpan/EditableSpan';
-import {Checkbox, IconButton} from '@mui/material';
-import {Delete} from '@mui/icons-material';
 import {TaskType} from '../TodolistWithTasks';
+import {EditableSpan} from '../../EditableSpan/EditableSpan';
+import {Checkbox, Grid, IconButton} from '@mui/material';
+import {Delete} from '@mui/icons-material';
 
 type PropsType = {
     task: TaskType
     todolistID: string
-    removeTask: (id: string, todolistID: string) => void
-    changeTaskStatus: (taskID: string, isDone: boolean, todolistID: string) => void
     changeTaskTitle: (newTitleValue: string, taskID: string, todolistID: string) => void
+    changeTaskStatus: (taskID: string, isDone: boolean, todolistID: string) => void
+    removeTask: (id: string, todolistID: string) => void
 };
 
-/*Вывели в отдельную компоненту, чтобы избежать повторных перерисовок. Основные способы избежания лишних перерисовок:
-HOC "React.memo()", хук "useCallback()", дробление на компоненты.*/
-export const Task = React.memo((
-    {task, todolistID, removeTask, changeTaskStatus, changeTaskTitle}: PropsType) => {
-    const onRemoveHandler = useCallback(() => {
-        removeTask(task.id, todolistID);
-    }, [removeTask, task.id, todolistID]);
+/*Вывели создание задачи для списка задач в отдельную компоненту, чтобы избежать повторных перерисовок. Основные способы
+избежания лишних перерисовок: HOC "React.memo()", хук "useCallback()", дробление на компоненты.*/
+export const Task = React.memo(({
+                                    task,
+                                    todolistID,
+                                    changeTaskTitle,
+                                    changeTaskStatus,
+                                    removeTask
+                                }: PropsType) => {
+    console.log('Task has been called');
 
-    const onChangeStatusHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        /*"e.currentTarget.checked" будет меняться на противоположное значение в момент нажатия, так как чекбокс
-        попробует измениться, поэтому в функцию будет приходить то значение, на которое мы хотим изменить чекбокс.*/
-        changeTaskStatus(task.id, e.currentTarget.checked, todolistID);
-    }, [changeTaskStatus, task.id, todolistID]);
+    const onRemoveTaskClick = useCallback(
+        () => { removeTask(task.id, todolistID) },
+        [removeTask, task.id, todolistID]
+    );
 
-    const onChangeTaskTitleHandler = useCallback((newTitleValue: string) => {
-        changeTaskTitle(newTitleValue, task.id, todolistID);
-    }, [changeTaskTitle, task.id, todolistID]);
+    const onTaskStatusChange = useCallback(
+        (e: ChangeEvent<HTMLInputElement>) => { changeTaskStatus(task.id, e.currentTarget.checked, todolistID) },
+        [changeTaskStatus, task.id, todolistID]
+    );
 
-    return (
-        <div key={task.id} className={task.isDone ? 'is-done' : ''}>
-            <Checkbox checked={task.isDone}
-                      onChange={onChangeStatusHandler}
-            />
+    const onTaskTitleChange = useCallback(
+        (newTitleValue: string) => { changeTaskTitle(newTitleValue, task.id, todolistID) },
+        [changeTaskTitle, task.id, todolistID]
+    );
 
-            <EditableSpan inputText={task.title} onInputChangeCallback={onChangeTaskTitleHandler}/>
+    return <Grid item key={task.id} className={task.isDone ? 'is-done' : ''}>
+        <Checkbox checked={task.isDone}
+                  style={{color: '#7d5222'}}
+                  onChange={onTaskStatusChange}
+        />
 
-            <IconButton aria-label={'delete'} onClick={onRemoveHandler}>
-                <Delete/>
-            </IconButton>
-        </div>
-    )
+        <EditableSpan inputText={task.title} onInputChange={onTaskTitleChange}/>
+
+        <IconButton aria-label={'delete'}
+                    style={{color: '#7d5222'}}
+                    onClick={onRemoveTaskClick}>
+            <Delete/>
+        </IconButton>
+    </Grid>
 });

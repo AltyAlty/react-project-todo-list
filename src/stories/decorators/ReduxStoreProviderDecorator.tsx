@@ -1,40 +1,40 @@
+/*В данном декораторе имитируем наш глобальный store из Redux, указывая его начальное состояние. Декоратор на входе
+принимает какую-то историю и "декорирует" ее какими-то данными.*/
+
+import {ReactElement, JSXElementConstructor, ReactNode, ReactPortal} from 'react';
 import {combineReducers, createStore} from 'redux';
+import {Provider} from 'react-redux';
+import {v1} from 'uuid';
 import {todolistID1, todolistID2, todolistID3, todolistsReducer} from '../../state/todolists-reducer';
 import {tasksReducer} from '../../state/tasks-reducer';
-import {v1} from 'uuid';
 import {AppRootState} from '../../state/store';
-import {Provider} from 'react-redux';
 
-const rootReducer = combineReducers(
-    {
-        tasks: tasksReducer,
-        todolists: todolistsReducer
-    }
-);
+const rootReducer = combineReducers({tasks: tasksReducer, todolists: todolistsReducer});
 
 const initialGlobalState = {
     todolists: [
-        {id: todolistID1, title: 'What to learn', filter: 'all'},
-        {id: todolistID2, title: 'What to buy', filter: 'active'},
-        {id: todolistID3, title: 'What to sell', filter: 'complete'},
+        {id: todolistID1, title: 'TO STUDY', filter: 'all'},
+        {id: todolistID2, title: 'TO BUY', filter: 'active'},
+        {id: todolistID3, title: 'TO SELL', filter: 'complete'},
     ],
 
     tasks: {
         [todolistID1]: [
             {id: v1(), title: 'HTML&CSS', isDone: true},
-            {id: v1(), title: 'JS', isDone: false},
-            {id: v1(), title: 'REACT', isDone: false},
-            {id: v1(), title: 'REDUX', isDone: false},
+            {id: v1(), title: 'Javascript', isDone: true},
+            {id: v1(), title: 'Typescript', isDone: false},
+            {id: v1(), title: 'React', isDone: false},
+            {id: v1(), title: 'Redux', isDone: false},
         ],
 
         [todolistID2]: [
-            {id: v1(), title: 'OK', isDone: true},
-            {id: v1(), title: 'KEK', isDone: false},
+            {id: v1(), title: 'GTX 6090', isDone: false},
+            {id: v1(), title: '8K Monitor', isDone: true},
         ],
 
         [todolistID3]: [
-            {id: v1(), title: 'NOT_OK', isDone: false},
-            {id: v1(), title: 'LOL', isDone: true},
+            {id: v1(), title: 'Old PC', isDone: false},
+            {id: v1(), title: 'Soul', isDone: true},
         ],
     }
 };
@@ -42,11 +42,11 @@ const initialGlobalState = {
 // @ts-ignore
 export const storyBookStore = createStore(rootReducer, initialGlobalState as AppRootState);
 
-/*В данном декораторе имитируем наш "store", указывая его начальное состояние. Декоратор на входе принимает какую-то
-историю и "декорирует" ее какими-то данными.*/
-export const ReduxStoreProviderDecorator = (storyFn: any) => {
-    return <Provider store={storyBookStore}>
-        {storyFn()}
-    </Provider>
-};
+type StoryFnType = () => string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> |
+    Iterable<ReactNode> | ReactPortal | null | undefined;
 
+export const ReduxStoreProviderDecorator = (storyFn: StoryFnType) => {
+    return <Provider
+        store={storyBookStore}> {storyFn()}
+    </Provider>;
+};
