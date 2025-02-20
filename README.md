@@ -26,10 +26,10 @@ This is a simple Todo List built with React and Typescript. For state management
 
 <h2>Scripts:</h3>
 
-### `yarn start` **- Runs the application**
+#### `yarn start` - Runs the application
 
-### `yarn test` **- Launches Jest unit tests**
+#### `yarn test` - Launches Jest unit tests
 
-### `storybook dev -p 6006` **- Runs Storybook for snapshot testing**
+#### `storybook dev -p 6006` - Runs Storybook for snapshot testing
 
-### `storybook dev -p 9009` **- Runs Storybook for API testing**
+#### `storybook dev -p 9009` - Runs Storybook for API testing
