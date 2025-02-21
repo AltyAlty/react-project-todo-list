@@ -56,10 +56,10 @@ and API tests using Axios integrated with Storybook.
 <table align="center">
   <tr>    
     <td align="center" width="200">
-        Script
+        <b>Script</b>
     </td>
-    <td width="300">
-        Description
+    <td align="center" width="300">
+        <b>Description</b>
     </td>    
   </tr>
   
