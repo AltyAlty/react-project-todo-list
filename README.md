@@ -51,46 +51,46 @@ and API tests using Axios integrated with Storybook.
 
 <table align="center">
   <tr>    
-    <td align="center" width="156">
+    <td align="center" width="176">
         Script
     </td>
-    <td width="246">
+    <td width="276">
         Description
     </td>    
   </tr>
   
   <tr>    
-    <td align="center" width="156">
+    <td align="center" width="176">
         yarn start
     </td>
-    <td width="246">
+    <td width="276">
         Runs the application
     </td>    
   </tr>
 
   <tr>    
-    <td align="center" width="156">
+    <td align="center" width="176">
         yarn test
     </td>
-    <td width="246">
+    <td width="276">
         Runs Jest unit tests
     </td>    
   </tr>
 
   <tr>    
-    <td align="center" width="156">
+    <td align="center" width="176">
         storybook dev -p 6006
     </td>
-    <td width="246">
+    <td width="276">
         Runs Storybook for snapshot testing
     </td>    
   </tr>
 
   <tr>    
-    <td align="center" width="156">
+    <td align="center" width="176">
         storybook dev -p 9009
     </td>
-    <td width="246">
+    <td width="276">
         Runs Storybook for API testing
     </td>    
   </tr>
