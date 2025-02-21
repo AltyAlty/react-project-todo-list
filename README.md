@@ -5,6 +5,8 @@ React Redux to keep the state organized. The user interface is designed using Ma
 responsive design. To ensure reliability, the application includes unit tests with Jest, snapshot tests with Storybook
 and API tests using Axios integrated with Storybook.
 
+<hr>
+
 <h3 align="center" font-size='25px'>Tech Stack</h3>
 
 <table align="center">
@@ -46,6 +48,8 @@ and API tests using Axios integrated with Storybook.
     </td>
   </tr>
 </table>
+
+<hr>
 
 <h3 align="center" font-size='25px'>Scripts</h3>
 
@@ -95,3 +99,5 @@ and API tests using Axios integrated with Storybook.
     </td>    
   </tr>
 </table>
+
+<hr>
