@@ -1,4 +1,4 @@
-<h1 align="center">A React-Based Todo List</h1>
+<h1 align="center">React-Based Todo List</h1>
 
 This is a simple Todo List built with React and Typescript. For state management, the application utilizes Redux and
 React Redux to keep the state organized. The user interface is designed using Material UI, providing a clean and
