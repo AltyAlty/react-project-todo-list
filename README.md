@@ -64,7 +64,7 @@ and API tests using Axios integrated with Storybook.
   </tr>
   
   <tr>    
-    <td align="center" width="200">
+    <td width="200">
         yarn start
     </td>
     <td width="300">
@@ -73,7 +73,7 @@ and API tests using Axios integrated with Storybook.
   </tr>
 
   <tr>    
-    <td align="center" width="200">
+    <td width="200">
         yarn test
     </td>
     <td width="300">
@@ -82,7 +82,7 @@ and API tests using Axios integrated with Storybook.
   </tr>
 
   <tr>    
-    <td align="center" width="200">
+    <td width="200">
         storybook dev -p 6006
     </td>
     <td width="300">
@@ -91,7 +91,7 @@ and API tests using Axios integrated with Storybook.
   </tr>
 
   <tr>    
-    <td align="center" width="200">
+    <td width="200">
         storybook dev -p 9009
     </td>
     <td width="300">
