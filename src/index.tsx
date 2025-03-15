@@ -19,6 +19,8 @@
 Запуск Storybook: storybook dev -p 6006
 Запуск Storybook для тестирования API через Axios: storybook dev -p 9009
 Собрать билд Storybook: storybook build
+Собрать билд для GitHub Pages: yarn build
+Развернуть билд на GitHub Pages: gh-pages -d build
 */
 
 /*Файл "index.tsx" является точкой входа проекта.*/

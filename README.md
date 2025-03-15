@@ -106,6 +106,24 @@ and API tests using Axios integrated with Storybook.
         Runs Storybook for API testing
     </td>    
   </tr>
+
+  <tr>    
+    <td width="200">
+        yarn build
+    </td>
+    <td width="300">
+        Makes a build for GitHub Pages
+    </td>    
+  </tr>
+
+  <tr>    
+    <td width="200">
+        gh-pages -d build
+    </td>
+    <td width="300">
+        Deploys the build to GitHub Pages
+    </td>    
+  </tr>
 </table>
 
 <hr>
