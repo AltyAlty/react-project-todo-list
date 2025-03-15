@@ -38,19 +38,19 @@ and API tests using Axios integrated with Storybook.
   </tr>
 
   <tr>
-    <td align="center" width="96">
+    <td align="center">
         <img src="./readme-images/material-ui-icon.png" alt="icon" width="65" height="65" />
       <br>Material UI
     </td>
-    <td align="center" width="96">
+    <td align="center">
         <img src="./readme-images/jest-icon.png" alt="icon" width="65" height="65" />
       <br>Jest
     </td>
-    <td align="center" width="96">
+    <td align="center">
         <img src="./readme-images/storybook-icon.png" alt="icon" width="65" height="65" />
       <br>Storybook
     </td>
-    <td align="center" width="96">
+    <td align="center">
         <img src="./readme-images/axios-icon.png" alt="icon" width="65" height="65" />
       <br>Axios
     </td>
@@ -72,55 +72,55 @@ and API tests using Axios integrated with Storybook.
   </tr>
   
   <tr>
-    <td width="200">
+    <td>
         yarn start
     </td>
-    <td width="300">
+    <td>
         Runs the application
     </td>
   </tr>
 
   <tr>
-    <td width="200">
+    <td>
         yarn test
     </td>
-    <td width="300">
+    <td>
         Runs Jest unit tests
     </td>
   </tr>
 
   <tr>
-    <td width="200">
+    <td>
         storybook dev -p 6006
     </td>
-    <td width="300">
+    <td>
         Runs Storybook for snapshot testing
     </td>
   </tr>
 
   <tr>
-    <td width="200">
+    <td>
         storybook dev -p 9009
     </td>
-    <td width="300">
+    <td>
         Runs Storybook for API testing
     </td>
   </tr>
 
   <tr>
-    <td width="200">
+    <td>
         yarn build
     </td>
-    <td width="300">
+    <td>
         Makes a build for GitHub Pages
     </td>
   </tr>
 
   <tr>
-    <td width="200">
+    <td>
         gh-pages -d build
     </td>
-    <td width="300">
+    <td>
         Deploys the build to GitHub Pages
     </td>
   </tr>
