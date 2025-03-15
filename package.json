@@ -1,8 +1,8 @@
 {
   "name": "002-react-project-todo-list",
   "version": "0.1.0",
-  "homepage": "https://altyalty.github.io/react-project-todo-list/",
   "private": true,
+  "homepage": "https://altyalty.github.io/react-project-todo-list/",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
