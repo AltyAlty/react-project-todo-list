@@ -62,67 +62,67 @@ and API tests using Axios integrated with Storybook.
 <h3 align="center" font-size='25px'>Scripts</h3>
 
 <table align="center">
-  <tr>    
+  <tr>
     <td align="center" width="200">
         <b>Script</b>
     </td>
     <td align="center" width="300">
         <b>Description</b>
-    </td>    
+    </td>
   </tr>
   
-  <tr>    
+  <tr>
     <td width="200">
         yarn start
     </td>
     <td width="300">
         Runs the application
-    </td>    
+    </td>
   </tr>
 
-  <tr>    
+  <tr>
     <td width="200">
         yarn test
     </td>
     <td width="300">
         Runs Jest unit tests
-    </td>    
+    </td>
   </tr>
 
-  <tr>    
+  <tr>
     <td width="200">
         storybook dev -p 6006
     </td>
     <td width="300">
         Runs Storybook for snapshot testing
-    </td>    
+    </td>
   </tr>
 
-  <tr>    
+  <tr>
     <td width="200">
         storybook dev -p 9009
     </td>
     <td width="300">
         Runs Storybook for API testing
-    </td>    
+    </td>
   </tr>
 
-  <tr>    
+  <tr>
     <td width="200">
         yarn build
     </td>
     <td width="300">
         Makes a build for GitHub Pages
-    </td>    
+    </td>
   </tr>
 
-  <tr>    
+  <tr>
     <td width="200">
         gh-pages -d build
     </td>
     <td width="300">
         Deploys the build to GitHub Pages
-    </td>    
+    </td>
   </tr>
 </table>
 
