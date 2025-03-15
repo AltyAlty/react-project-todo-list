@@ -11,6 +11,7 @@
 Установка аддона Chromatic для Storybook (не работает): yarn add @chromatic-com/storybook --dev
 Установка аддона Docs для Storybook (не используется): yarn add @storybook/addon-docs --dev
 Установка Axios: yarn add axios
+Установка GitHub Pages: yarn add gh-pages --dev
 
 Установка всех модулей (если необходимо): yarn install
 Запуск приложения: yarn start

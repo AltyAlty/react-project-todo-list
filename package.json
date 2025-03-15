@@ -1,6 +1,7 @@
 {
   "name": "002-react-project-todo-list",
   "version": "0.1.0",
+  "homepage": "https://altyalty.github.io/react-project-todo-list/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -32,7 +33,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 9009",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -67,6 +70,7 @@
     "@storybook/react-webpack5": "^8.1.6",
     "@storybook/test": "^8.1.6",
     "eslint-plugin-storybook": "^0.8.0",
+    "gh-pages": "^6.3.0",
     "prop-types": "15.8.1",
     "storybook": "^8.1.6",
     "webpack": "5.91.0"

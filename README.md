@@ -7,10 +7,18 @@ and API tests using Axios integrated with Storybook.
 
 <hr>
 
+<p align="center">
+  <a href="https://altyalty.github.io/react-project-todo-list/">
+    <strong>Link to the app</strong>
+  </a>
+</p>
+
+<hr>
+
 <h3 align="center" font-size='25px'>Tech Stack</h3>
 
 <table align="center">
-  <tr>    
+  <tr>
     <td align="center" width="96">
         <img src="./readme-images/javascript-icon.png" alt="icon" width="65" height="65" />
       <br>Javascript
