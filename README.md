@@ -54,7 +54,7 @@ and API tests using Axios integrated with Storybook.
         <img src="./readme-images/storybook-icon.png" alt="icon" width="65" height="65" />
       <br>Storybook
     </td>
-    <td align="center">
+    <td align="center" colspan="2">
         <img src="./readme-images/axios-icon.png" alt="icon" width="65" height="65" />
       <br>Axios
     </td>
