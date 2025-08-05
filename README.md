@@ -35,6 +35,10 @@ and API tests using Axios integrated with Storybook.
         <img src="./readme-images/redux-icon.png" alt="icon" width="65" height="65" />
       <br>Redux
     </td>
+    <td align="center" width="96">
+        <img src="./readme-images/yarn-icon.png" alt="icon" width="65" height="65" />
+      <br>Yarn
+    </td>
   </tr>
 
   <tr>
@@ -70,13 +74,22 @@ and API tests using Axios integrated with Storybook.
         <b>Description</b>
     </td>
   </tr>
-  
+
+  <tr>
+    <td>
+        yarn install
+    </td>
+    <td>
+        Installs project dependencies 
+    </td>
+  </tr>
+
   <tr>
     <td>
         yarn start
     </td>
     <td>
-        Runs the application
+        Runs application
     </td>
   </tr>
 
