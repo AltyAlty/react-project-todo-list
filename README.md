@@ -1,6 +1,6 @@
 <h1 align="center">React-Based Todo List</h1>
 
-This is a simple Todo List built with React and Typescript. For state management, the application utilizes Redux and
+This is a simple Todo List built with React and TypeScript. For state management, the application utilizes Redux and
 React Redux to keep the state organized. The user interface is designed using Material UI, providing a clean and
 responsive design. To ensure reliability, the application includes unit tests with Jest, snapshot tests with Storybook
 and API tests using Axios integrated with Storybook.
